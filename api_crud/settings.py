@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'authentication',
-    'movies',
+    'hojas',
 ]
 
 SITE_ID = 1
@@ -69,7 +69,9 @@ ROOT_URLCONF = 'api_crud.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'frontend/dist') # The correct index.html is located here
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,4 +134,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/dist/static/')
+    # Puedes agregar mas carpetas si es necesario
+]

@@ -1,9 +1,9 @@
 from django_filters import rest_framework as filters
-from .models import Movie
+from .models import Hoja
 
 
 # We create filters for each field we want to be able to filter on
-class MovieFilter(filters.FilterSet):
+class HojaFilter(filters.FilterSet):
     title = filters.CharFilter(lookup_expr='icontains')
     genre = filters.CharFilter(lookup_expr='icontains')
     year = filters.NumberFilter()
@@ -12,6 +12,6 @@ class MovieFilter(filters.FilterSet):
     creator__username = filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
-        model = Movie
+        model = Hoja
         fields = ['title', 'genre', 'year', 'year__gt', 'year__lt', 'creator__username']
 

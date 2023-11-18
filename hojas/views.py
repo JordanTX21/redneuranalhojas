@@ -1,29 +1,29 @@
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from django_filters import rest_framework as filters
-from .models import Movie
+from .models import Hoja
 from .permissions import IsOwnerOrReadOnly
-from .serializers import MovieSerializer
+from .serializers import HojaSerializer
 from .pagination import CustomPagination
-from .filters import MovieFilter
+from .filters import HojaFilter
 
 
-class ListCreateMovieAPIView(ListCreateAPIView):
-    serializer_class = MovieSerializer
-    queryset = Movie.objects.all()
+class ListCreateHojaAPIView(ListCreateAPIView):
+    serializer_class = HojaSerializer
+    queryset = Hoja.objects.all()
     permission_classes = [IsAuthenticated]
     pagination_class = CustomPagination
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = MovieFilter
+    filterset_class = HojaFilter
 
     def perform_create(self, serializer):
-        # Assign the user who created the movie
+        # Assign the user who created the Hoja
         serializer.save(creator=self.request.user)
 
 
-class RetrieveUpdateDestroyMovieAPIView(RetrieveUpdateDestroyAPIView):
-    serializer_class = MovieSerializer
-    queryset = Movie.objects.all()
+class RetrieveUpdateDestroyHojaAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = HojaSerializer
+    queryset = Hoja.objects.all()
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
 
