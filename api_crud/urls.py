@@ -7,9 +7,8 @@ from . import views
 
 # urls
 urlpatterns = [
-    url(r'^', views.index, name='index'),
+    path('', views.index, name='index'),
     path('api/v1/hojas/', include('hojas.urls')),
     path('api/v1/auth/', include('authentication.urls')),
     path('admin/', admin.site.urls),
-    path('admin/', admin.site.urls),
-] + static( '/static/', document_root=settings.STATIC_ROOT, show_indexes=True )
+] + static( settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True )
