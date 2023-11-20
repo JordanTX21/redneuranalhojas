@@ -1,4 +1,7 @@
 import './assets/main.css'
+import * as Services from './services'
+import './utils'
+window.Services = Services
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

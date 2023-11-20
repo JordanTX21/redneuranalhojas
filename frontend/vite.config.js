@@ -13,5 +13,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  base: '/static/'
+  build: {
+    assetsDir: 'static/assets',
+    outDir: './dist',  // Ruta donde se deben generar los archivos estáticos para Django
+  },
 })
