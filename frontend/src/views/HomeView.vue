@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="container mx-auto px-6 flex">
+    <div class="container mx-auto px-6">
       <div class="mt-10 lg:grid lg:grid-cols-2 lg:gap-8">
         <div
           class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 lg:mb-0 flex justify-center">
