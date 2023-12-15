@@ -1,7 +1,7 @@
 import axios from "axios";
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
-const domain = "http://127.0.0.1:8000"
+const domain = location.origin
 
 const postFile = async (url, data) => {
     console.log(data)
