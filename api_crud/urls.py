@@ -10,4 +10,6 @@ urlpatterns = [
     path('api/v1/hojas/', include('hojas.urls')),
     path('api/v1/auth/', include('authentication.urls')),
     path('admin/', admin.site.urls),
-] + static( settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True )
+]
+if settings.DEBUG:
+    static( settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True )
