@@ -99,6 +99,18 @@ class ImageView(APIView):
             "categoria": categoria
         }}, status=status.HTTP_200_OK)
     
+
+class MapView(APIView):
+    def post(self, request, *args, **kwargs):
+        file = request.data.get('file')
+
+        # Guarda el archivo en el sistema de archivos temporal
+        with open(r'hojas\public\modelo_som_entrenado.pkl', 'wb') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        return Response({"success":True,"message":"subido"})
+
+
 def base64_image(img):
     buffer = BytesIO()
     plt.imsave(buffer, img, cmap='gray', format='png')
