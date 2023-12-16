@@ -44,11 +44,18 @@ class ImageView(APIView):
         # Normalizar los píxeles
         img_normalized = img_as_float(img_sobel)
 
+        # Coordenadas de inicio y fin para el recorte
+        start_row, end_row = 1, 254  # Recortar desde la fila 1 hasta la fila 254 (254 píxeles)
+        start_col, end_col = 1, 254  # Recortar desde la columna 1 hasta la columna 254 (254 píxeles)
+
         # Realizar el recorte
         img_recortada = img_normalized[start_row:end_row, start_col:end_col]
 
-        # Redimensionar la imagen recortada a 18x18 aplicando mediana directamente
-        resized_img = transform.resize(img_recortada, (18, 18), mode='reflect', anti_aliasing=True)
+        # Aplicar mediana a la imagen redimensionada
+        img = np.median(img_recortada, axis=(0, 1))
+
+        # Redimensionar la imagen recortada a 18x18
+        resized_img = transform.resize(img, (18, 18), mode='reflect', anti_aliasing=True)
 
         # Convertir la matriz 18x18 a un vector de 1x324
         vectorized_img = resized_img.reshape(1, -1)
@@ -98,7 +105,6 @@ class ImageView(APIView):
             "bmu": bmu,
             "categoria": categoria
         }}, status=status.HTTP_200_OK)
-    
 
 class MapView(APIView):
     def post(self, request, *args, **kwargs):
@@ -110,6 +116,10 @@ class MapView(APIView):
                 destination.write(chunk)
         return Response({"success":True,"message":"subido"})
 
+class RedView(APIView):
+    def post(self, request, *args, **kwargs):
+        
+        return Response({"success":True,"message":"subido"})
 
 def base64_image(img):
     buffer = BytesIO()
