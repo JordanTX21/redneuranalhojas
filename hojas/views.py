@@ -10,6 +10,7 @@ from skimage import color, io, transform, filters, img_as_float
 import pandas as pd
 from io import BytesIO
 import matplotlib.pyplot as plt
+from PIL import Image
 
 class ImageView(APIView):
     def post(self, request, *args, **kwargs):
@@ -44,31 +45,18 @@ class ImageView(APIView):
         # Normalizar los píxeles
         img_normalized = img_as_float(img_sobel)
 
-        # Coordenadas de inicio y fin para el recorte
-        start_row, end_row = 1, 254  # Recortar desde la fila 1 hasta la fila 254 (254 píxeles)
-        start_col, end_col = 1, 254  # Recortar desde la columna 1 hasta la columna 254 (254 píxeles)
-
-        # Realizar el recorte
-        img_recortada = img_normalized[start_row:end_row, start_col:end_col]
-
-        # Aplicar mediana a la imagen redimensionada
-        img = np.median(img_recortada, axis=(0, 1))
-
-        # Redimensionar la imagen recortada a 18x18
-        resized_img = transform.resize(img, (18, 18), mode='reflect', anti_aliasing=True)
+        # Redimensionar la imagen
+        target_size = (18, 18)
+        img_resized = Image.fromarray((img_normalized * 255).astype(np.uint8))
+        img_resized = img_resized.resize(target_size)
 
         # Convertir la matriz 18x18 a un vector de 1x324
-        vectorized_img = resized_img.reshape(1, -1)
-
-        #print(vectorized_img)
-
+        vectorized_img = np.array(img_resized).reshape(1, -1)
 
         # Cargar la red SOM entrenada
         with open(r'hojas\public\modelo_som_entrenado.pkl', 'rb') as f:
             som = pickle.load(f)
 
-
-        # Asignar categoría A a los primeros 25 datos y categoría B a los demás
         # Cargar las categorías desde el archivo Excel
         df_categorias = pd.read_excel(r'hojas\public\categorias_excel.xlsx')
 
@@ -79,26 +67,19 @@ class ImageView(APIView):
         winners = np.array([som.winner(x) for x in vectorized_img])
 
         # Asegurarse de que 'categories' tenga la forma correcta (2D)
-        categories = np.reshape(df_categorias, (som.get_weights().shape[0], som.get_weights().shape[1]))
+        categories = np.reshape(df_categorias.values, (som_size[0], som_size[1]))
 
         # Obtener las categorías asociadas a los datos cercanos a la BMU
         cercanas_categorias = categories[winners[:, 0], winners[:, 1]]
 
         # Mostrar las coordenadas de la BMU y las categorías asociadas
         for bmu, categoria in zip(winners, cercanas_categorias):
-            if(categoria=='A'):
-                print(f"Coordenadas de la BMU: {bmu}, Categoría: {categoria}") #, Tipo: 1 Lito - Normal TAZA
-            elif(categoria=='B'):
-                print(f"Coordenadas de la BMU: {bmu}, Categoría: {categoria}")#, Tipo: 650 ml - Alcalina AUDIFONO
-            else:
-                print(f"Coordenadas de la BMU: {bmu}, Categoría: {categoria}")#, Tipo: V
+            print(f"Coordenadas de la BMU: {bmu}, Categoría: {categoria}")
 
         imagenes_base64 = {}
         imagenes_base64['Gris'] = base64_image(img_gray)
         imagenes_base64['Sobel'] = base64_image(img_sobel)
-        imagenes_base64['Normalized'] = base64_image(img_normalized)
-        imagenes_base64['Recortada'] = base64_image(img_recortada)
-        imagenes_base64['Resized'] = base64_image(resized_img)
+        imagenes_base64['Resized'] = base64_image(img_resized)
 
         return Response({"success":True,"message": "Imagen recibida con éxito","data":{
             "images": imagenes_base64,

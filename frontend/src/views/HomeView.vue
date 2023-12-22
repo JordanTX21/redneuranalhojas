@@ -1,6 +1,14 @@
 <template>
   <main>
     <div class="container mx-auto px-6">
+      <div class="pt-10">
+        <div class="text-3xl text-center font-bold text-white mb-3">RED NEURONAL PARA LA CLASIFICACION HOJAS DE LUCUMA</div>
+        <div class="text-sm text-gray-500 dark:text-gray-400 mb-3">
+          Plataforma especializada que utiliza redes neuronales para clasificar hojas de lucuma en las categorías de "sana", "seca" y "dañada". 
+          Este proyecto hace uso de la red som con aprendizaje aplicado, para clasificar la imagen que subas en un tipo de hoja especifico.
+        </div>
+        <div><span class="font-bold text-gray-500 dark:text-white">Precisión: </span><span class="text-gray-500 dark:text-gray-400">71%</span></div>
+      </div>
       <div class="my-10 lg:grid lg:grid-cols-2 lg:gap-8">
         <div
           class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 lg:mb-0 flex justify-center">
