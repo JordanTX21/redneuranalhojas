@@ -75,10 +75,10 @@ class ImageView(APIView):
 
 
         imagenes_base64 = {}
-        # imagenes_base64['Gris'] = base64_image(img_gray)
-        # imagenes_base64['Sobel'] = base64_image(img_sobel)
+        imagenes_base64['Gris'] = base64_image(img_gray)
+        imagenes_base64['Sobel'] = base64_image(img_sobel)
         # imagenes_base64['Normalized'] = base64_image(img_normalized)
-        # imagenes_base64['Resized'] = base64_image(img_resized)
+        imagenes_base64['Resized'] = base64_image(img_resized)
 
         return Response({"success":True,"message": "Imagen recibida con éxito","data":{
             "images": imagenes_base64,
