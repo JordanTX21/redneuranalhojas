@@ -30,11 +30,8 @@ class ImageView(APIView):
 
         # Cargar la imagen
         # img = io.imread(r'LUCUMA\IMG_20231112_133040.jpg')
-        img = io.imread(r'hojas\public\archivo_temporal.jpg')
-
-        # Coordenadas de inicio y fin para el recorte
-        start_row, end_row = 1, 254  # Recortar desde la fila 1 hasta la fila 254 (254 píxeles)
-        start_col, end_col = 1, 254  # Recortar desde la columna 1 hasta la columna 254 (254 píxeles)
+        img = Image.open(r'hojas\public\archivo_temporal.jpg')
+        #img = Image.open(r'LUCUMA\DAÑADA\IMG_20231112_133242.jpg')
 
         # Convertir la imagen a escala de grises
         img_gray = color.rgb2gray(img)
