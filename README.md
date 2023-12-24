@@ -2,7 +2,7 @@
 
 ## Requisitos
 - Python 3.6
-- Django 3.1
+- Django 4.0
 - Django REST Framework
 - Node 18
 - Vue 3
@@ -11,6 +11,11 @@
 Crear entorno virtual
 ```
 python -m venv env
+```
+
+Usar entorno virtual
+```
+env/Script/Activate
 ```
 
 Instalar dependencias

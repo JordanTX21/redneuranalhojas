@@ -7,7 +7,7 @@
           Plataforma especializada que utiliza redes neuronales para clasificar hojas de lucuma en las categorías de "sana", "seca" y "dañada". 
           Este proyecto hace uso de la red som con aprendizaje aplicado, para clasificar la imagen que subas en un tipo de hoja especifico.
         </div>
-        <div><span class="font-bold text-gray-500 dark:text-white">Precisión: </span><span class="text-gray-500 dark:text-gray-400">71%</span></div>
+        <div><span class="font-bold text-gray-500 dark:text-white">Precisión: </span><span class="text-gray-500 dark:text-gray-400">91.70%</span></div>
       </div>
       <div class="my-10 lg:grid lg:grid-cols-2 lg:gap-8">
         <div
